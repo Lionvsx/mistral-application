@@ -132,7 +132,7 @@ export default function Chat() {
             {/* Add ref element at the bottom */}
             <div ref={messagesEndRef} />
 
-            <div className='fixed bottom-0 right-0 left-0 flex justify-center items-center h-fit bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm'>
+            <div className='fixed bottom-0 right-0 left-0 px-4 flex justify-center items-center h-fit bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm'>
                 <div className="w-full max-w-md flex flex-col items-center gap-2 mb-4">
                     <form onSubmit={submitMessage} className="w-full relative">
                         <Textarea
