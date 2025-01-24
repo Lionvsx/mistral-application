@@ -45,14 +45,15 @@ export default function Chat() {
             {/* Add reset button at the top */}
             <div className="fixed top-0 right-0 left-0 flex justify-center items-center h-16 bg-white/20 dark:bg-neutral-900/80 backdrop-blur-sm z-10">
                 <div className="w-full max-w-md flex justify-end px-4">
-                    <button
-                        onClick={() => setMessages([])}
-                        className="px-3 py-1.5 text-sm font-medium rounded-md transition-colors
-                                 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
-                                 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+                    <Button
+                        onClick={() => {
+                            stop();
+                            setMessages([]);
+                        }}
+                        variant='secondary'
                     >
                         Reset Chat
-                    </button>
+                    </Button>
                 </div>
             </div>
 
