@@ -7,9 +7,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { ToolInvocation } from 'ai';
 import { Message, useChat } from 'ai/react';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, ArrowUpRight } from 'lucide-react';
 import React from 'react';
 import { ScrapeHackerNewsToolCall } from '../tools/scrape-hacker-news';
+import Link from 'next/link';
 
 
 export default function Chat() {
@@ -131,44 +132,54 @@ export default function Chat() {
             {/* Add ref element at the bottom */}
             <div ref={messagesEndRef} />
 
-            <div className='fixed bottom-0 right-0 left-0 flex justify-center items-center h-fit bg-white/20 dark:bg-neutral-900/80 backdrop-blur-sm'>
-                <form onSubmit={submitMessage} className="w-full max-w-md relative mb-8">
-                    <Textarea
-                        className="resize-none w-full pr-24 overflow-hidden"
-                        value={input}
-                        placeholder="Send a message... press enter to send"
-                        onChange={(e) => {
-                            handleInputChange(e);
-                            // Auto-grow logic
-                            const textarea = e.target;
-                            textarea.style.height = 'auto';
-                            textarea.style.height = `${textarea.scrollHeight}px`;
-                        }}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter' && !e.shiftKey) {
-                                e.preventDefault();
-                                const form = e.currentTarget.form;
-                                if (form) form.requestSubmit();
-                            }
-                        }}
-                        rows={1}
-                        disabled={isLoading}
-                    />
-                    <Button
-                        type="submit"
-                        disabled={isLoading ? false : !input.trim()}
-                        className={cn("absolute right-2 bottom-2 p-1 text-sm")}
-                        onClick={(e) => {
-                            if (isLoading) {
-                                e.preventDefault();
-                                stop();
-                            }
-                        }}
-                        size='icon'
+            <div className='fixed bottom-0 right-0 left-0 flex justify-center items-center h-fit bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm'>
+                <div className="w-full max-w-md flex flex-col items-center gap-2 mb-4">
+                    <form onSubmit={submitMessage} className="w-full relative">
+                        <Textarea
+                            className="resize-none w-full pr-24 overflow-hidden"
+                            value={input}
+                            placeholder="Send a message... press enter to send"
+                            onChange={(e) => {
+                                handleInputChange(e);
+                                // Auto-grow logic
+                                const textarea = e.target;
+                                textarea.style.height = 'auto';
+                                textarea.style.height = `${textarea.scrollHeight}px`;
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' && !e.shiftKey) {
+                                    e.preventDefault();
+                                    const form = e.currentTarget.form;
+                                    if (form) form.requestSubmit();
+                                }
+                            }}
+                            rows={1}
+                            disabled={isLoading}
+                        />
+                        <Button
+                            type="submit"
+                            disabled={isLoading ? false : !input.trim()}
+                            className={cn("absolute right-2 bottom-2 p-1 text-sm")}
+                            onClick={(e) => {
+                                if (isLoading) {
+                                    e.preventDefault();
+                                    stop();
+                                }
+                            }}
+                            size='icon'
+                        >
+                            {isLoading ? <span className="size-3.5 bg-white rounded-sm"></span> : <ArrowUp className="size-5" />}
+                        </Button>
+                    </form>
+                    <Link
+                        href="https://leonard.roussard.me"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors flex items-center gap-1"
                     >
-                        {isLoading ? <span className="size-3.5 bg-white rounded-sm"></span> : <ArrowUp className="size-5" />}
-                    </Button>
-                </form>
+                        Made by Leonard Roussard <ArrowUpRight className="size-3" />
+                    </Link>
+                </div>
             </div>
         </div>
     );
